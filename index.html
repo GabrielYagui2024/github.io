@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio de Gabriel Yagui - Analista de Dados e Desenvolvedor">
+    <meta property="og:title" content="Portfólio Profissional | Gabriel Yagui">
+    <title>Portfólio Profissional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffcc;
+            --primary-dark: #00cca3;
+            --bg-dark: #121212;
+            --bg-light: #1f1f1f;
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--bg-light);
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+        }
+        
+        nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s, border-bottom 0.3s;
+            padding-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+        
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .foto-perfil {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .foto-perfil:hover {
+            transform: scale(1.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: var(--bg-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
+        .habilidades {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .habilidade {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .habilidade img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        
+        .habilidade:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
+        }
+        
+        .projetos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .projeto {
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .projeto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.2);
+        }
+        
+        .projeto-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .projeto h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .tech-tags span {
+            background: rgba(0, 255, 204, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 30px auto;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background: var(--bg-light);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-links img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s;
+        }
+        
+        .social-links img:hover {
+            transform: scale(1.1);
+        }
+        
+        footer {
+            background: var(--bg-light);
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                background: var(--bg-light);
+                width: 100%;
+                transition: left 0.3s;
+                padding: 20px 0;
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+                text-align: center;
+            }
+            
+            .container {
+                padding: 100px 20px 40px;
+            }
+            
+            .habilidade {
+                width: 150px;
+                padding: 15px;
+            }
+        }
+
+        /* Estilos para os links sociais */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-item:hover {
+            background: rgba(0, 255, 204, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .social-item img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .social-item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .social-links {
+                gap: 15px;
+            }
+            
+            .social-item {
+                padding: 6px 10px;
+            }
+            
+            .social-item img {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .social-item span {
+                font-size: 13px;
+            }
+        }
+
+        /* Estilos para o container de email */
+        .email-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .copy-notification {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--bg-dark);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+        }
+        
+        .copy-notification.error {
+            background: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gabriel Yagui</h1>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <button id="menu-toggle" class="btn btn-small" style="display: none;">Menu</button>
+        </nav>
+    </header>
+    
+    <section id="inicio" class="container">
+        <h2>Explorando Dados, Criando Soluções!</h2>
+        <img class="foto-perfil" src="C:\Users\Eryck\Pictures\portifolio/eu123.png" alt="Gabriel Yagui">
+        <p>Analista de Dados | Desenvolvedor | Especialista em Power BI</p>
+        <a href="https://drive.google.com/uc?export=download&id=1WrY1NtQNqSh-dk6EhBEMw6qBQMZrorVf" download="Curriculo_Gabriel_Yagui.pdf" class="btn">
+            Baixar Currículo
+        </a>
+    </section>
+    
+    <section id="sobre" class="container">
+        <h2>Sobre Mim</h2>
+        <p>
+
+            📊 Analista de Dados | Desenvolvedor | Solucionador de Problemas </p>
+            
+           <p> Como apaixonado por tecnologia e dados, transformo informações complexas em insights acionáveis. Atualmente cursando Sistemas de Informação, domino:
+            
+            • Análise de Dados: SQL avançado, Power BI e Python (Pandas, NumPy)
+            • Automação: Scripts Python para otimização de processos
+            • Visualização: Dashboards interativos e relatórios estratégicos</p>
+        
+        <div class="habilidades" style="justify-content: center; margin-top: 30px;">
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/ti.png" alt="Formação">
+                <div>
+                    <h4 style="margin: 0;">Sistemas de Informação</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Cursando</p>
+                </div>
+            </div>
+            
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/exp.png" alt="Experiência">
+                <div>
+                    <h4 style="margin: 0;">1 ano</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Experiência</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="habilidades" class="container">
+        <h2>Habilidades</h2>
+        <div class="habilidades">
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/py.png" alt="Python">
+                <div>
+                    <h4 style="margin: 0;">Python</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Avançado</p>
+                </div>
+            </div>
+            
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/sql.png" alt="SQL">
+                <div>
+                    <h4 style="margin: 0;">SQL</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Avançado</p>
+                </div>
+            </div>
+            
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/bi.png" alt="Power BI">
+                <div>
+                    <h4 style="margin: 0;">Power BI</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Avançado</p>
+                </div>
+            </div>
+            
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/aut.png" alt="Automação">
+                <div>
+                    <h4 style="margin: 0;">Automação</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Intermediário</p>
+                </div>
+            </div>
+            
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/github.png" alt="GitHub">
+                <div>
+                    <h4 style="margin: 0;">GitHub</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Intermediário</p>
+                </div>
+            </div>
+            
+            <div class="habilidade">
+                <img src="C:\Users\Eryck\Pictures\portifolio/bd.png" alt="Banco de Dados">
+                <div>
+                    <h4 style="margin: 0;">Banco de Dados</h4>
+                    <p style="margin: 5px 0 0; font-size: 14px; color: var(--text-secondary);">Avançado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projetos" class="container">
+        <h2>Projetos</h2>
+        <div class="projetos-grid">
+            <div class="projeto">
+                <img src="C:\Users\Eryck\Pictures\portifolio/bi.png" alt="Dashboard de Vendas" class="projeto-thumb">
+                <h3>Dashboard de Vendas</h3>
+                <p>Dashboard interativo desenvolvido em Power BI para análise de desempenho de vendas com drill-down por regiões e produtos.</p>
+                <div class="tech-tags">
+                    <span>Power BI</span>
+                    <span>SQL</span>
+                    <span>DAX</span>
+                </div>
+                <a href="#projeto1-detalhes" class="btn btn-small">Ver Detalhes</a>
+            </div>
+            
+            <div class="projeto">
+                <img src="C:\Users\Eryck\Pictures\portifolio/aut.png" alt="Automação de Relatórios" class="projeto-thumb">
+                <h3>Automação de Relatórios</h3>
+                <p>Sistema de automação de relatórios financeiros utilizando Python e Pandas, reduzindo tempo de geração em 85%.</p>
+                <div class="tech-tags">
+                    <span>Python</span>
+                    <span>Pandas</span>
+                    <span>Automation</span>
+                </div>
+                <a href="#projeto2-detalhes" class="btn btn-small">Ver Detalhes</a>
+            </div>
+            
+            <div class="projeto">
+                <img src="C:\Users\Eryck\Pictures\portifolio/sql.png" alt="Otimização de Consultas" class="projeto-thumb">
+                <h3>Otimização de Consultas SQL</h3>
+                <p>Refatoração de consultas SQL complexas, melhorando performance em até 10x para relatórios corporativos.</p>
+                <div class="tech-tags">
+                    <span>SQL</span>
+                    <span>Performance</span>
+                    <span>Database</span>
+                </div>
+                <a href="#projeto3-detalhes" class="btn btn-small">Ver Detalhes</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contato" class="container">
+        <h2>Contato</h2>
+        <form class="contact-form">
+            <input type="text" placeholder="Seu Nome" required>
+            <input type="email" placeholder="Seu Email" required>
+            <textarea placeholder="Sua Mensagem" required></textarea>
+            <button type="submit" class="btn">Enviar Mensagem</button>
+        </form>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="https://drive.google.com/uc?export=download&id=1WrY1NtQNqSh-dk6EhBEMw6qBQMZrorVf" download="Curriculo_Gabriel_Yagui.pdf" class="btn">
+                Baixar Currículo
+            </a>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/gabriel-yagui/" target="_blank" rel="noopener noreferrer" class="social-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xOSAzaC0xNGE1IDUgMCAwIDAtNSA1djE0YTUgNSAwIDAgMCA1IDVoMTRhNSA1IDAgMCAwIDUtNXYtMTRhNSA1IDAgMCAwLTUtNXptLTExIDRoM3YxMmgtM3YtMTJ6bTEuNS0yYy0xLjEgMC0yIC45LTIgMnMuOSAyIDIgMiAyLS45IDItMi0uOS0yLTItMnptNi41IDZoLTN2LTFoM3Yxem0wIDJoLTN2LTZoM3Y2eiIvPjwvc3ZnPg==" alt="LinkedIn">
+                <span>LinkedIn</span>
+            </a>
+            
+            <a href="https://github.com/GabrielYagui2024" target="_blank" rel="noopener noreferrer" class="social-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAuM2MtNi42MyAwLTEyIDUuMzctMTIgMTIgMCA1LjMwMyAzLjQzOCA5LjggOC4yMDUgMTEuMzg1LjYuMTEzLjgyLS4yNTguODItLjU3NyAwLS4yODUtLjAxLTEuMDQtLjAxNS0yLjA0LTMuMzM4LjcyNC00LjA0Mi0xLjYxLTQuMDQyLTEuNjEtLjU0Ni0xLjM4Ny0xLjMzMi0xLjc1Ni0xLjMzMi0xLjc1Ni0xLjA4OS43MzUuMDgzLjcyNS4wODMuNzI1IDEuMjA1LjA4NSAxLjgzOCAxLjIzNiAxLjgzOCAxLjIzNiAxLjA3IDEuODM1IDIuODA5IDEuMzA1IDMuNDk1Ljk5OC4xMDgtLjc3Ni40MTctMS4zMDUuNzYtMS42MDQtMi42NjUtLjMtNS40NjYtMS4zMzItNS40NjYtNS45MyAwLTEuMzEuNDY1LTIuMzggMS4yMzUtMy4yMi0uMTM1LjMwMy0uNTQgMS41MjMuMTA1IDMuMTc2IDAgMCAxLjAwNS4zMjIgMy40MSAxLjIzIDEtLjI4IDIuMDctLjQyIDMuMTM1LjQyNi45MTUtLjI2IDEuODg1LS40MjYgMi44NC0uNDI2Ljk1NSAwIDEuOTI1LjE2IDIuODQuNDI2IDEuMDY1LTEuMDQ2IDIuMTM1LTEuMDQ2IDMuMTM1LS40MjYgMi40MDUtLjkwOCAzLjQxLTEuMjMgMy40MS0xLjIzLjY0NS0xLjY1My4yNC0yLjg3My4xMDUtMy4xNzYuNzctLjg0IDEuMjMtMS45MSAxLjIzLTMuMjIgMC00LjYxLTIuODA1LTUuNjI1LTUuNDc1LTUuOTIuNDItLjM2LjgxLS45OC44MS0xLjk4IDAtMS40My0uMDE1LTIuNTgtLjAxNS0yLjkyIDAtLjMyLjIxLS42OS44MjUtLjU3QzIwLjU2NSAzLjE1IDI0IDcuNTk1IDI0IDEyLjk5OGMwIDYuNjMtNS4zNyAxMi0xMiAxMnoiLz48L3N2Zz4=" alt="GitHub">
+                <span>GitHub</span>
+            </a>
+            
+            <div class="email-container">
+                <a href="#" id="copy-email" class="social-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMCA0SDRjLTEuMSAwLTEuOTkuOS0xLjk5IDJMMiAxOGMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0yVjZjMC0xLjEtLjktMi0yLTJtMCA0bC04IDUtOC01VjZoMTZsLTggNS04LTVoMTZ6Ii8+PC9zdmc+" alt="Email">
+                    <span id="email-text">gabrielhaga51@gmail.com</span>
+                </a>
+                <div id="copy-notification" class="copy-notification">Email copiado!</div>
+                <input type="text" id="email-hidden" value="gabrielhaga51@gmail.com" style="position: absolute; left: -9999px;">
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© <span id="current-year">2023</span> Gabriel Yagui. Todos os direitos reservados.</p>
+        <p>Desenvolvido com ❤️ e código limpo</p>
+    </footer>
+
+    <script>
+        // Observador para animações de scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Menu mobile
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        function checkScreenSize() {
+            if (window.innerWidth <= 768) {
+                menuToggle.style.display = 'block';
+                navMenu.classList.remove('active');
+            } else {
+                menuToggle.style.display = 'none';
+                navMenu.classList.remove('active');
+            }
+        }
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        window.addEventListener('resize', checkScreenSize);
+        checkScreenSize();
+
+        // Suavizar links de navegação
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Fechar menu mobile se aberto
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Copiar e-mail para área de transferência
+        document.getElementById('copy-email').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const email = 'gabrielhaga51@gmail.com'; // Seu e-mail
+            const notification = document.getElementById('copy-notification');
+            const emailText = document.getElementById('email-text');
+            const originalText = emailText.textContent;
+            const hiddenInput = document.getElementById('email-hidden');
+            
+            // Função para mostrar sucesso
+            const showSuccess = () => {
+                notification.textContent = 'Email copiado!';
+                notification.className = 'copy-notification show';
+                emailText.textContent = 'Copiado!';
+                
+                setTimeout(() => {
+                    notification.className = 'copy-notification';
+                    emailText.textContent = originalText;
+                }, 2000);
+            };
+            
+            // Função para mostrar erro
+            const showError = () => {
+                notification.textContent = 'Selecione e copie manualmente (Ctrl+C)';
+                notification.className = 'copy-notification show error';
+                
+                // Seleciona o texto para facilitar a cópia manual
+                hiddenInput.select();
+                hiddenInput.setSelectionRange(0, 99999);
+                
+                setTimeout(() => {
+                    notification.className = 'copy-notification';
+                }, 4000);
+            };
+            
+            // Tenta usar a API moderna primeiro
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(email)
+                    .then(showSuccess)
+                    .catch(() => {
+                        // Fallback para método antigo se a API moderna falhar
+                        fallbackCopy();
+                    });
+            } else {
+                // Usa método antigo se a API não estiver disponível
+                fallbackCopy();
+            }
+            
+            // Método de fallback para navegadores antigos
+            function fallbackCopy() {
+                hiddenInput.value = email;
+                hiddenInput.select();
+                hiddenInput.setSelectionRange(0, 99999);
+                
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        showSuccess();
+                    } else {
+                        showError();
+                    }
+                } catch (err) {
+                    showError();
+                }
+            }
+        });
+
+        // Atualizar ano no footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
